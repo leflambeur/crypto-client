@@ -31,17 +31,4 @@ func main(){
 	if err != nil {
 		log.Fatal(err)
 	}
-
-//		Name: "crypto-client"
-//		Usage: "client for interacting with crypto.com"
-//		Action: func(c *cli.Context) error {
-//			fmt.Println("WTF am I doing")
-
-//	if *instrumentsFlag {
-//		instruments, err := cget.GetInstruments()
-//		if err != nil{
-//			log.Println(err)
-//		}
-//		fmt.Println(instruments)
-//	}
 }

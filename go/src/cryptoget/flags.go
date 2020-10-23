@@ -22,7 +22,7 @@ func calculateNonce()(string){
 }
 
 func GetInstruments()(string, error) {
-	URL := "https://api.crypto.com/v2/public/get-instruments"
+	URL := "https://api.crypto.com/v2/public/get-instruments" //https://exchange-docs.crypto.com/?python#public-get-instruments
 	resp, err := http.Get(URL)
 	if err != nil {
 		log.Fatal("GET Failure")

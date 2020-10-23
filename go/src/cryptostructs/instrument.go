@@ -4,6 +4,9 @@ import (
 	"fmt"
 )
 
+//https://exchange-docs.crypto.com/?python#public-get-instruments
+
+
 type InstrumentValues struct {
 	Name			string			`json:"instrument_name"`
 	QCurrency		string			`json:"quote_currency"`
