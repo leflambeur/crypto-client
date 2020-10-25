@@ -1,27 +1,23 @@
 package cryptoget
 
-import(
+import (
 	"encoding/json"
-	_"fmt"
 	"log"
 	"net/http"
-	"time"
-	_ "bytes"
 	"strconv"
-	_"io"
-	_"os"
+	"time"
 
-	cstructs "cryptostructs"
+	cstructs "github.com/leflambeur/crypto-client/cryptostructs"
 )
 
-func calculateNonce()(string){
+func calculateNonce() string {
 	epochNanos := time.Now().UnixNano()
 	epochMillis := epochNanos / 1000000
 	nonceStr := strconv.FormatInt(epochMillis, 10)
 	return nonceStr
 }
 
-func GetInstruments()(string, error) {
+func GetInstruments() (string, error) {
 	URL := "https://api.crypto.com/v2/public/get-instruments" //https://exchange-docs.crypto.com/?python#public-get-instruments
 	resp, err := http.Get(URL)
 	if err != nil {
@@ -34,5 +30,3 @@ func GetInstruments()(string, error) {
 	}
 	return iResp.TextOutput(), nil
 }
-
-//func
