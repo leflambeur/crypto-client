@@ -1,27 +1,28 @@
 package main
 
-import(
-	"os"
+import (
 	"fmt"
 	"log"
+	"os"
+
+	cget "github.com/leflambeur/crypto-client/cryptoget"
 	"github.com/urfave/cli"
-	cget "cryptoget"
 )
 
-func main(){
+func main() {
 	app := &cli.App{
-		Commands: []*cli.Command{
+		Commands: []cli.Command{
 			{
-				Name:"get-instruments",
+				Name:    "get-instruments",
 				Aliases: []string{"i"},
-				Usage: "Get instruments from crypto.com",
+				Usage:   "Get instruments from crypto.com",
 				Action: func(c *cli.Context) error {
 					instruments, err := cget.GetInstruments()
-					if err != nil{
+					if err != nil {
 						log.Println(err)
 					}
 					fmt.Println(instruments)
-					return(err)
+					return err
 				},
 			},
 		},
