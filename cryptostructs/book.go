@@ -5,16 +5,10 @@ import (
 	"time"
 )
 
-type BookValues struct {
-	Price        float64
-	Quantity     float64
-	numberOrders int
-}
-
 type BookData struct {
-	BookBids []BookValues `json:"bids"`
-	BookAsks []BookValues `json:"asks"`
-	BookTime int64        `json:"t"`
+	BookBids [][]float64 `json:"bids"`
+	BookAsks [][]float64 `json:"asks"`
+	BookTime int64       `json:"t"`
 }
 
 type Book struct {
@@ -29,14 +23,19 @@ type BookResult struct {
 
 func (c BookResult) TextOutput() string {
 	var p string
-	p += fmt.Sprintf("Time: %s\nInstrument Name: %s\n Depth %d\n", time.Unix(c.BookResult.Book.BookTime, 0).Format(time.RFC822Z), c.BookResult.InstrumentName, c.BookResult.BookDepth)
-	for i, _ := range c.BookResult.Book.BookBids {
-		p += fmt.Sprintf("-------------------------------------\nPrice: %d\nQuantity: %d\nNumber of Orders: %d\n",
-			c.BookResult.Book.BookBids[i].Price, c.BookResult.Book.BookBids[i].Quantity, c.BookResult.Book.BookBids[i].numberOrders)
-	}
-	for j, _ := range c.BookResult.Book.BookAsks {
-		p += fmt.Sprintf("-------------------------------------\nPrice: %d\nQuantity: %d\nNumber of Orders: %d\n",
-			c.BookResult.Book.BookAsks[j].Price, c.BookResult.Book.BookAsks[j].Quantity, c.BookResult.Book.BookAsks[j].numberOrders)
+
+	for _, book := range c.BookResult.Book {
+		p += fmt.Sprintf("Time: %s\nInstrument Name: %s\n Depth %d\n", time.Unix(book.BookTime, 0).Format(time.RFC822Z), c.BookResult.InstrumentName, c.BookResult.BookDepth)
+		for _, bid := range book.BookBids {
+			if len(bid) == 3 {
+				p += fmt.Sprintf("-------------------------------------\nPrice: %.8f\nQuantity: %.2f\nNumber of Orders: %.0f\n",
+					bid[0], bid[1], bid[2])
+			}
+		}
+		for _, asks := range book.BookAsks {
+			p += fmt.Sprintf("-------------------------------------\nPrice: %.8f\nQuantity: %.2f\nNumber of Orders: %.0f\n",
+				asks[0], asks[1], asks[2])
+		}
 	}
 	return p
 }
