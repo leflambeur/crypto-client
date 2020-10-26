@@ -25,7 +25,7 @@ func (c BookResult) TextOutput() string {
 	var p string
 
 	for _, book := range c.BookResult.Book {
-		p += fmt.Sprintf("Time: %s\nInstrument Name: %s\n Depth %d\n", time.Unix(book.BookTime, 0).Format(time.RFC822Z), c.BookResult.InstrumentName, c.BookResult.BookDepth)
+		p += fmt.Sprintf("Time: %s\nInstrument Name: %s\nDepth %d\n", time.Unix(book.BookTime, 0).Format(time.RFC822Z), c.BookResult.InstrumentName, c.BookResult.BookDepth)
 		for _, bid := range book.BookBids {
 			if len(bid) == 3 {
 				p += fmt.Sprintf("-------------------------------------\nPrice: %.8f\nQuantity: %.2f\nNumber of Orders: %.0f\n",
