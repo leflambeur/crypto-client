@@ -11,6 +11,10 @@ import (
 
 func main() {
 	app := &cli.App{
+
+		Name: "crypto-client",
+		Usage: "Interact with crypto.com API",
+
 		Commands: []cli.Command{
 			{
 				Name:    "get-instruments",
