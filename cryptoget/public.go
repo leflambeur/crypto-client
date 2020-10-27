@@ -11,7 +11,7 @@ import (
 	cstructs "github.com/leflambeur/crypto-client/cryptostructs"
 )
 
-func calculateNonce() string {
+func _() string {
 	epochNanos := time.Now().UnixNano()
 	epochMillis := epochNanos / 1000000
 	nonceStr := strconv.FormatInt(epochMillis, 10)
@@ -39,11 +39,23 @@ func GetBook(instrumentName string, bookDepth string) (string, error) {
 		log.Fatal("GET Failure")
 	}
 	defer resp.Body.Close()
-	//io.Copy(os.Stdout, resp.Body)
 	var bResp cstructs.BookResult
 	if err := json.NewDecoder(resp.Body).Decode(&bResp); err != nil {
 		log.Fatalf("Decode Failure %+v", err)
 	}
 	return bResp.TextOutput(), nil
+}
 
+func GetCandlestick(instrumentName string, timeFrame string) (string, error) {
+	URL := fmt.Sprintf("https://api.crypto.com/v2/public/get-candlestick?instrument_name=%s&timeframe=%s", instrumentName, timeFrame) //https://exchange-docs.crypto.com/?python#public-get-candlestick
+	resp, err := http.Get(URL)
+	if err != nil {
+		log.Fatal("GET Failure")
+	}
+	defer resp.Body.Close()
+	var cResp cstructs.CandlestickResult
+	if err := json.NewDecoder(resp.Body).Decode(&cResp); err != nil {
+		log.Fatalf("Decode Failure %+v", err)
+	}
+	return cResp.TextOutput(), nil
 }
