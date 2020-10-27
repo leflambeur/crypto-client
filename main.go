@@ -12,7 +12,7 @@ import (
 func main() {
 	app := &cli.App{
 
-		Name: "crypto-client",
+		Name:  "crypto-client",
 		Usage: "Interact with crypto.com API",
 
 		Commands: []cli.Command{
@@ -53,7 +53,7 @@ func main() {
 						log.Println(err)
 					}
 					fmt.Println(book)
-					return (err)
+					return err
 				},
 			},
 		},

@@ -24,7 +24,7 @@ type InstrumentsResult struct {
 
 func (c InstrumentsResult) TextOutput() string {
 	var p string
-	for i, _ := range c.InstrumentsResult.Instruments {
+	for i := range c.InstrumentsResult.Instruments {
 		p += fmt.Sprintf("-------------------------------------\nName: %s\nQuote Currency: %s\nBase Currency: %s\nPrice: %d\nQuantity: %d\n",
 			c.InstrumentsResult.Instruments[i].Name, c.InstrumentsResult.Instruments[i].QCurrency,
 			c.InstrumentsResult.Instruments[i].BCurrency, c.InstrumentsResult.Instruments[i].Price,
